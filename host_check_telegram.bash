@@ -26,12 +26,10 @@ for myHost in $HOSTS
 do
   count=$(ping -c $COUNT $myHost | grep 'received' | awk -F',' '{ print $2 }' | awk '{ print $1 }')
  if [ $count -ge 3 ]; then
-        echo
+        continue 
        else
         TEXT="Host $myHost  down! (ping failed) at $(date)"
         curl -s --max-time $TIMEOUT -d "chat_id=$USERID&disable_web_page_preview=1&text=$TEXT" $URL > /dev/null
 
   fi
 done
-
-
